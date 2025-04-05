@@ -21,7 +21,6 @@ func ParseFlags() {
 	flag.Usage = func() {
 		PrintHelp()
 	}
-	
 	flag.Parse()
 }
 
