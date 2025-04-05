@@ -43,7 +43,7 @@ func GetChain() error {
 		MarkovChain[prefix] = append(MarkovChain[prefix], text[i+prefixLength])
 	}
 	prefix := JoinWithSpace(text[i:i+prefixLength])
-	MarkovChain[prefix] = append(MarkovChain[prefix], "!@#@!#") //end
+	MarkovChain[prefix] = append(MarkovChain[prefix], "!@#!@#") // end of file
 	return nil
 }
 
@@ -52,14 +52,22 @@ func PrintMarkovChainText() {
 	prefix := config.Cfg.StartPrefix
 	prefixLength := config.Cfg.PrefixLength
 	fmt.Print(prefix)
-	
+
 	for i := 0; i < maxWords - prefixLength; i++ {
 		next, ok := MarkovChain[prefix]
-		if !ok {
+		if !ok { 
+			return
+		} 
+		
+		// if slices.Contains(next, "!@#!@#") {  // if you want to stop writing when we get last word
+		// 		return
+		// 	}
+
+		word := next[rand.Intn(len(next))]
+		if word == "!@#!@#" {
 			return
 		}
-		word := next[rand.Intn(len(next))]
 		updatePrefix(&prefix, word)
 		fmt.Print(" ", word)
-	}
+	} 
 }

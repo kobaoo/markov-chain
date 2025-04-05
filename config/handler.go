@@ -18,7 +18,6 @@ func HandleConfig(cfg *Config) error {
 	}else if cfg.MaxWords < cfg.PrefixLength {
 		return fmt.Errorf("amount of maximum possible words is less than input prefix length")
 	}
-
 	
 	return nil
 }
